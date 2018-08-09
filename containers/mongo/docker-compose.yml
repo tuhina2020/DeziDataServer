@@ -1,0 +1,16 @@
+version: '2'
+services:
+    mongodb:
+        container_name: "mongodb"
+        hostname: mongo1
+        build: ./
+        expose:
+          - "27017"
+        ports:
+          - "27017:27017"
+        environment:
+          - MONGO_DATA_DIR=/data/db
+          - MONGO_LOG_DIR=/data/logs
+        volumes:
+          - './data/db:/data/db'
+        entrypoint: [  "/usr/bin/mongod","--rest", "--httpinterface", "--dbpath", "/data/db","--port","27017","--bind_ip","0.0.0.0"]
