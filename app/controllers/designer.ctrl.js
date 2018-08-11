@@ -31,22 +31,12 @@ module.exports = {
             })
         }
     },
-    getAll: (req, res, next) => {
-        Designer.find({}).lean().exec((err, designer)=> {
-            if (err)
-                res.send(err)
-            else if (!designer)
-                res.send(404)
-            else{
-                res.send(designer)
-            }
-            next()            
-        })
-    },
     /**
      * article_id
      */
     get: (req, res, next) => {
+        const { params: {id} } = req;
+        const filter = id === 'all' ? {} : { _id: id };
         Designer.findById(req.params.id).lean().exec((err, designer)=> {
             if (err)
                 res.send(err)

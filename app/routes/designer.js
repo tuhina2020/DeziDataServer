@@ -1,17 +1,11 @@
-//server/routes/product.js
-
 const Designer = require('./../controllers/designer.ctrl.js')
 const express = require('express');
 const router = express.Router();
 
-// Home page route.
-router.get('/designers', Designer.getAll);
+router.get('/:id', /*validator.params(validation.get)*/Designer.get)
+router.delete('/:id', /*validator.params(validation.get),*/ Designer.delete)
+router.put('/:id', /*validator.body(validation.create),*/ Designer.update);
 
-// About page route.
-router.get('/designer/:id', Designer.get);
-
-router.post('/designer/create', Designer.create);
-router.delete('/:id', Designer.delete);
-router.put('/:id', Designer.update);
+router.post('/create', /*validator.body(validation.create),*/ Designer.create);
 
 module.exports = router;
