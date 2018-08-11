@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
+const passport = require('passport');
 const cloudinary = require('cloudinary')
 const express_graphql = require('express-graphql');
 const { buildSchema } = require('graphql');
@@ -66,6 +67,8 @@ const port = process.env.PORT || 3000;
 app.use(cors())
 app.use(bodyParser.json())
 app.use(helmet())
+app.use(passport.initialize());
+app.use(passport.session());
 //app.use('/static',express.static(path.join(__dirname,'static')))
 
 // app.use('/', router);

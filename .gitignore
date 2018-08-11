@@ -8,6 +8,8 @@
 
 # production
 /build
+package-lock.json
+/containers/mongo/data
 
 # misc
 .DS_Store
