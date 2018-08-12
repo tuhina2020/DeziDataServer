@@ -19,24 +19,32 @@ const config = convict({
                 "doc": "The Client Secret from Google to use for authentication",
                 "default": "",
                 "env": "3aXrQzhvEWlSxv1gU2ZU0hRP"
+            },
+            "callbackURL": {
+            	doc: 'url called after fb',
+            	default: 'http://dev.elanic.in/auth/google'
             }
         },
         facebook: {
-            "clientId": {
+            "clientID": {
                 "doc": "The Client ID from Facebook to use for authentication",
-                "default": "",
-                "env": "298887914212333"
+                "default": "298887914212333",
+                "env": "FACEBOOK_CLIENTID"
             },
             "clientSecret": {
                 "doc": "The Client Secret from Facebook to use for authentication",
-                "default": "",
+                "default": "97a6b10479d7104515d821919524aeb2",
                 "env": "FACEBOOK_CLIENTSECRET"
+            },
+            "callbackURL": {
+            	doc: 'url called after fb',
+            	default: 'http://localhost:3000/user/auth/facebook/callback'
             }
         },
         token: {
             secret: {
                 doc: 'The signing key for the JWT',
-                default: 'mySuperSecretKey',
+                default: Buffer.from('fe1a1915a379f3be5394b64d14794932', 'hex'),
                 env: 'JWT_SIGNING_KEY'
             },
             issuer: {

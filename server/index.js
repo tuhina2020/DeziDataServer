@@ -8,6 +8,7 @@ const
 	cloudinary = require('cloudinary'),
 	express_graphql = require('express-graphql'),
 	// { buildSchema } = require('graphql');
+	FacebookStrategy = require('passport-facebook').Strategy;
 	config = require('./config.js'),
 	expressValidation = require('express-validation'),
 	app = express()
@@ -57,14 +58,31 @@ module.exports = function() {
 
 	  app.use(bodyParser.urlencoded({ extended: true }));
 	  app.use(bodyParser.json());
-	  // app.use('/graphql', express_graphql({
-	  //     schema: schema,
-	  //     rootValue: root,
-	  //     graphiql: true
-	  // }));
+	  console.log(config.get('authentication.facebook'))
+	  passport.use(new FacebookStrategy(config.get('authentication.facebook'),
+	  function(accessToken, refreshToken, profile, done) {
+	    // asynchronous verification, for effect...
+	    process.nextTick(function () {
+	      
+	      // To keep the example simple, the user's Facebook profile is returned to
+	      // represent the logged-in user.  In a typical application, you would want
+	      // to associate the Facebook account with a user record in your database,
+	      // and return that user instead.
+	      return done(null, profile);
+	    });
+	  }
+	));
 
 	  app.set('port', config.get('http.port'));
 	  app.set('hostname', 'localhost');
+	  // passport setting
+		passport.serializeUser(function(user, done) {
+		  done(null, user);
+		});
+
+		passport.deserializeUser(function(obj, done) {
+		  done(null, obj);
+		});
 
       // Set up routes
       routes.init(app);
